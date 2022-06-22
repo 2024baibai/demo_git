@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+    {% block title %}主页{% endblock %}
+
+    {%block content%}
+    <section class="py-5 text-center container">
+        <div class="row g-2">
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="length" value="">
+                    <label for="length">长</label>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="width" value="">
+                    <label for="width">宽</label>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="height" value="">
+                    <label for="height">高</label>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-floating">
+                    <button type="submit" class="btn btn-primary mb-3" id="submit_btn">提交</button>
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+
+        <script>
+            $("#submit_btn").click(function(){
+                var length = $("#length").val();
+                var width = $("#width").val();
+                var height = $("#height").val();
+                $.ajax({
+                    url: "{{url_for('api')}}",
+                    type: "POST",
+                    data: {
+                        length: length,
+                        width: width,
+                        height: height
+                    },
+                    success: function(data){
+                        alert(data.msg);
+                    }
+                })
+            })
+        </script>
+        {%endblock content%}
