@@ -1,43 +1,62 @@
 {% extends "base.html" %}
 
-    {% block title %}主页{% endblock %}
+    {% block title %}Home{% endblock %}
 
     {%block content%}
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
     <section class="py-5 text-center container">
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
+                    <input type="text" class="form-control" id="name" value="">
+                    <label for="name">Youe Name</label>
+                </div>
+            </div>
+            <div class="col-md hide">
+                <div class="form-floating">
                     <input type="text" class="form-control" id="length" value="">
-                    <label for="length">长</label>
+                    <label for="length">Length</label>
                 </div>
             </div>
 
-            <div class="col-md">
+            <div class="col-md hide">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="width" value="">
-                    <label for="width">宽</label>
+                    <label for="width">Width</label>
                 </div>
             </div>
 
-            <div class="col-md">
+            <div class="col-md hide">
                 <div class="form-floating">
                     <input type="text" class="form-control" id="height" value="">
-                    <label for="height">高</label>
+                    <label for="height">Height</label>
                 </div>
             </div>
 
-            <div class="col-md">
+            <div class="col-md hide">
                 <div class="form-floating">
-                    <button type="submit" class="btn btn-primary mb-3" id="submit_btn">提交</button>
+                    <button type="submit" class="btn btn-primary mb-3" id="submit_btn">Submit</button>
                 </div>
             </div>
 
         </div>
-        </div>
+    </section>
 
 
-        <script>
-            $("#submit_btn").click(function(){
+    <script>
+        $("#name").change(function () {
+            if($(this).val() != ""){
+                document.querySelectorAll(".hide").forEach(function (item) {
+                    item.classList.remove("hide");
+                });
+            }
+        });
+        $("#submit_btn").click(function(){
+                var name = $("#name").val();            
                 var length = $("#length").val();
                 var width = $("#width").val();
                 var height = $("#height").val();
@@ -45,6 +64,7 @@
                     url: "{{url_for('api')}}",
                     type: "POST",
                     data: {
+                        name: name,
                         length: length,
                         width: width,
                         height: height
@@ -54,5 +74,5 @@
                     }
                 })
             })
-        </script>
-        {%endblock content%}
+    </script>
+    {%endblock content%}
